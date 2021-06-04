@@ -4,6 +4,18 @@ import (
 	"fmt"
 )
 
+// Type Switch
+func foo(i interface{}) {
+	switch i.(type) {
+	case int:
+		fmt.Println("I'm an integer!")
+	case string:
+		fmt.Println("I'm a string!")
+	default:
+		fmt.Println("Uknown type!")
+	}
+}
+
 func main() {
 
 	// Basic If/Else Structure
@@ -26,4 +38,8 @@ func main() {
 	default:
 		fmt.Println("Default case")
 	}
+
+	// Type Switch Use-Case
+	foo(x)
+	foo(y)
 }
