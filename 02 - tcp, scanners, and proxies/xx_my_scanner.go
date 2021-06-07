@@ -62,7 +62,7 @@ func main() {
 	close(ports)
 	close(results)
 
-	// Need to sort ports by Numbers across groups
+	// Need to sort ports by Numbers across groups and combine tcp/udp
 	// Need to identify services
 
 	for _, result := range openports {
