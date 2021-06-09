@@ -24,7 +24,7 @@ type Host struct {
 	Timestamp string       `json:"timestamp"`
 	ISP       string       `json:"isp"`
 	ASN       string       `json:"asn"`
-	Hostnames string       `json:"hostnames"`
+	Hostnames []string     `json:"hostnames"`
 	Location  HostLocation `json:"location"`
 	IP        int64        `json:"ip"`
 	Domains   []string     `json:"domains"`
