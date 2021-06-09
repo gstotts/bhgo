@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"../../shodan"
+	"01_shodan/shodan"
 )
 
 func main() {
