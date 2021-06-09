@@ -30,6 +30,6 @@ func main() {
 	}
 
 	for _, host := range hostSearch.Matches {
-		fmt.Printf("%18s%d\n", host.IPString, host.Port)
+		fmt.Printf("%18  s%d\n", host.IPString, host.Port)
 	}
 }
