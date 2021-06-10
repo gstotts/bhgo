@@ -1,7 +1,6 @@
 package main
 
 import (
-	"03_bing/metadata"
 	"archive/zip"
 	"bytes"
 	"fmt"
@@ -11,11 +10,14 @@ import (
 	"net/url"
 	"os"
 
+	"03_bing/metadata"
+
 	"github.com/PuerkitoBio/goquery"
 )
 
 func handler(i int, s *goquery.Selection) {
 	url, ok := s.Find("a").Attr("href")
+	log.Printf(url)
 	if !ok {
 		return
 	}
@@ -47,13 +49,12 @@ func handler(i int, s *goquery.Selection) {
 		cp.Creator,
 		cp.LastModifiedBy,
 		ap.Application,
-		ap.GetMajorVersion(),
-	)
+		ap.GetMajorVersion())
 }
 
 func main() {
 	if len(os.Args) != 3 {
-		log.Fatalln("Missing required argument.  Usage: main.go <domain> <ext>")
+		log.Fatalln("Missing required argument. Usage: main.go <domain> <ext>")
 	}
 	domain := os.Args[1]
 	filetype := os.Args[2]
@@ -62,14 +63,20 @@ func main() {
 		"site:%s && filetype:%s && instreamset:(url title):%s",
 		domain,
 		filetype,
-		filetype,
-	)
+		filetype)
+
 	search := fmt.Sprintf("http://www.bing.com/search?q=%s", url.QueryEscape(q))
-	doc, err := goquery.NewDocument(search)
+	res, err := http.Get(search)
+	if err != nil {
+		return
+	}
+
+	doc, err := goquery.NewDocumentFromReader(res.Body)
 	if err != nil {
 		log.Panicln(err)
 	}
+	defer res.Body.Close()
+	s := "html body.b_sbText div#b_content main ol#b_results li.b_algo div.b_title h2"
 
-	s := "html body div#b_content li.b_algo div.b_title h2"
 	doc.Find(s).Each(handler)
 }
