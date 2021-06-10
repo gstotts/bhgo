@@ -15,6 +15,9 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// At last check, this isn't functioning properly.  Still playing to figure out how to get to work
+// as bing and libraries have probably changed since BHG was released.
+
 func handler(i int, s *goquery.Selection) {
 	url, ok := s.Find("a").Attr("href")
 	log.Printf(url)
